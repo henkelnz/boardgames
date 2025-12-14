@@ -23,20 +23,20 @@ fun prettyPrintDieResult(die: Die) {
  * Command-line entry point.
  */
 fun main() {
-    val orangeDieSides = arrayOf(
+    val redDieSides = arrayOf(
         DieSide(miss = true),
-        DieSide(wounds = 1),
-        DieSide(wounds = 1),
-        DieSide(wounds = 1),
-        DieSide(wounds = 1),
-        DieSide(wounds = 1)
+        DieSide(wounds = 4),
+        DieSide(wounds = 3, range = 1, surges = 1),
+        DieSide(wounds = 1, range = 2, surges = 1),
+        DieSide(wounds = 2, range = 2),
+        DieSide(wounds = 3, range = 1)
     )
 
-    val orangeDie = Die(
-        color = "Orange",
-        sides = orangeDieSides
+    val redDie = Die(
+        color = "Red",
+        sides = redDieSides
     )
 
-    orangeDie.roll()
-    prettyPrintDieResult(orangeDie)
+    redDie.roll()
+    prettyPrintDieResult(redDie)
 }
