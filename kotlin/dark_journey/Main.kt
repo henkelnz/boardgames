@@ -31,12 +31,28 @@ fun main() {
         DieSide(wounds = 2, range = 2),
         DieSide(wounds = 3, range = 1)
     )
+    
+    val blueDieSides = arrayOf(
+        DieSide(miss = true),
+        DieSide(wounds = 2, range = 1),
+        DieSide(wounds = 2, range = 2),
+        DieSide(wounds = 1, range = 3, surges = 1),
+        DieSide(wounds = 1, range = 3, surges = 1),
+        DieSide(wounds = 0, range = 4, surges = 1)
+    )
 
     val redDie = Die(
         color = "Red",
         sides = redDieSides
     )
+    
+    val blueDie = Die(
+        color = "Blue",
+        sides = blueDieSides
+    )
 
     redDie.roll()
     prettyPrintDieResult(redDie)
+    blueDie.roll()
+    prettyPrintDieResult(blueDie)
 }
