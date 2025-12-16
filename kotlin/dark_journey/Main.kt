@@ -5,7 +5,7 @@ fun prettyPrintDieResult(die: Die) {
     val side = die.currentSide()
 
     println("┌────────────────────────┐")
-    println("│ Rolled ${die.color} Die".padEnd(24) + "│")
+    println("│ Rolled ${die.type.name} Die".padEnd(24) + "│")
     println("├────────────────────────┤")
 
     if (side.miss) {
@@ -14,6 +14,7 @@ fun prettyPrintDieResult(die: Die) {
         println("│  ♥ Wounds : ${side.wounds}".padEnd(24) + "│")
         println("│  ⚡ Surges : ${side.surges}".padEnd(24) + "│")
         println("│  → Range  : ${side.range}".padEnd(24) + "│")
+        println("│  / Power  : ${side.power}".padEnd(24) + "│")
     }
 
     println("└────────────────────────┘")
@@ -23,36 +24,11 @@ fun prettyPrintDieResult(die: Die) {
  * Command-line entry point.
  */
 fun main() {
-    val redDieSides = arrayOf(
-        DieSide(miss = true),
-        DieSide(wounds = 4),
-        DieSide(wounds = 3, range = 1, surges = 1),
-        DieSide(wounds = 1, range = 2, surges = 1),
-        DieSide(wounds = 2, range = 2),
-        DieSide(wounds = 3, range = 1)
-    )
-    
-    val blueDieSides = arrayOf(
-        DieSide(miss = true),
-        DieSide(wounds = 2, range = 1),
-        DieSide(wounds = 2, range = 2),
-        DieSide(wounds = 1, range = 3, surges = 1),
-        DieSide(wounds = 1, range = 3, surges = 1),
-        DieSide(wounds = 0, range = 4, surges = 1)
-    )
-
-    val redDie = Die(
-        color = "Red",
-        sides = redDieSides
-    )
-    
-    val blueDie = Die(
-        color = "Blue",
-        sides = blueDieSides
-    )
-
-    redDie.roll()
-    prettyPrintDieResult(redDie)
-    blueDie.roll()
-    prettyPrintDieResult(blueDie)
+    val dice = Dice()
+    val types = arrayOf(DieType.RED, DieType.GREEN, DieType.BLACK)
+    val ds = dice.get(types)
+    for (i in ds) {
+        i.roll()
+        prettyPrintDieResult(i)
+    }    
 }
