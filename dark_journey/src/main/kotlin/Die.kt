@@ -120,6 +120,19 @@ object DieDefs {
 class Die(
     val type: DieType
 ) {
+    companion object {
+        fun get(types : Collection<DieType>) : ArrayList<Die> {
+            var dice = ArrayList<Die>()
+            for (type in types) {
+                dice.add(Die(type))
+            }
+            return dice
+        }
+        
+        fun toString(dice : Collection<Die>) : String {
+            return dice.joinToString()
+        }
+    }
 
     var facingSide: Int = 0
         private set
@@ -145,4 +158,8 @@ class Die(
      * Convenience accessor for the currently facing side.
      */
     fun currentSide(): DieSide = sides[facingSide]
+    
+    override fun toString(): String {
+        return "$type die"
+    }
 }
