@@ -31,4 +31,10 @@ class DieTest : StringSpec({
             Die.toString(dice) shouldContain "$t die"
         }
     }
+    
+    "Upgrade a die" {
+        var powerDie = Die(DieType.BLACK)
+        powerDie.upgrade(1)
+        powerDie.type shouldBe DieType.SILVER
+    }
 })

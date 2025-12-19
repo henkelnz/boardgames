@@ -117,9 +117,7 @@ object DieDefs {
     )
 }
 
-class Die(
-    val type: DieType
-) {
+class Die(var type : DieType) {
     companion object {
         fun get(types : Collection<DieType>) : ArrayList<Die> {
             var dice = ArrayList<Die>()
@@ -134,6 +132,8 @@ class Die(
         }
     }
 
+    //var type: DieType
+    //    private set
     var facingSide: Int = 0
         private set
     var sides: Array<DieSide>
@@ -142,6 +142,13 @@ class Die(
     init {
         sides=DieDefs.sidesMap.getValue(type)
         require(sides.size == 6) { "A die must have exactly 6 sides" }
+    }
+    
+    fun upgrade(steps : Int) {
+        if (type == DieType.BLACK) {
+            sides = DieDefs.sidesMap.getValue(DieType.SILVER)
+            type = DieType.SILVER
+        }
     }
 
     /**
