@@ -1,0 +1,13 @@
+shop:
+ Sword:
+   dieTypes: [RED,GREEN]
+   hands: 1
+   offhand: [+1D]
+   surgopt: [2_for_+1D]
+   special: []
+ Axe:
+   dieTypes: [RED,GREEN]
+   hands: 2
+   offhand: []
+   surgeopt: [1_for_+1D]
+   special: []

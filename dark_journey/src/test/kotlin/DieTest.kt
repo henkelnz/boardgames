@@ -32,9 +32,32 @@ class DieTest : StringSpec({
         }
     }
     
-    "Upgrade a die" {
+    "Upgrade power die" {
         var powerDie = Die(DieType.BLACK)
-        powerDie.upgrade(1)
+        powerDie.upgrade()
         powerDie.type shouldBe DieType.SILVER
+        
+        val silverDieSides = DieDefs.sidesMap.getValue(DieType.SILVER).toSet()
+        var uniqueOutputs = HashSet<DieSide>()
+        var tries = 0
+        while (uniqueOutputs.size < silverDieSides.size && tries < 1000) {
+            powerDie.roll()
+            uniqueOutputs.add(powerDie.currentSide())
+            ++tries
+        }
+        uniqueOutputs shouldBe silverDieSides.toSet()
+        
+        powerDie.upgrade()
+        powerDie.type shouldBe DieType.GOLD
+
+        val goldDieSides = DieDefs.sidesMap.getValue(DieType.GOLD).toSet()
+        uniqueOutputs = HashSet<DieSide>()
+        tries = 0
+        while (uniqueOutputs.size < goldDieSides.size && tries < 1000) {
+            powerDie.roll()
+            uniqueOutputs.add(powerDie.currentSide())
+            ++tries
+        }
+        uniqueOutputs shouldBe goldDieSides.toSet()
     }
 })

@@ -5,7 +5,7 @@ import kotlin.random.Random
 /**
  * Represents a six-sided die in Dark Journey.
  *
- * @property color The die color (e.g., "Red", "Blue", "White")
+ * @property type The die type (e.g., "Red", "Blue", "White")
  * @property sides The six sides of the die
  * @property facingSide Index (0–5) of the currently facing side
  */
@@ -127,6 +127,14 @@ class Die(var type : DieType) {
             return dice
         }
         
+        fun types(dice : Collection<Die>) : ArrayList<DieType> {
+            var types = ArrayList<DieType>()
+            for (die in dice) {
+                types.add(die.type)
+            }
+            return types
+        }
+        
         fun toString(dice : Collection<Die>) : String {
             return dice.joinToString()
         }
@@ -144,10 +152,14 @@ class Die(var type : DieType) {
         require(sides.size == 6) { "A die must have exactly 6 sides" }
     }
     
-    fun upgrade(steps : Int) {
+    fun upgrade() {
         if (type == DieType.BLACK) {
             sides = DieDefs.sidesMap.getValue(DieType.SILVER)
             type = DieType.SILVER
+        }
+        else if (type == DieType.SILVER) {
+            sides = DieDefs.sidesMap.getValue(DieType.GOLD)
+            type = DieType.GOLD
         }
     }
 
