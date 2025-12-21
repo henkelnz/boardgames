@@ -1,6 +1,0 @@
-name: Sword
-dieTypes: [RED,GREEN]
-hands: 1
-offhand: [+1D]
-surgeopt: [2_for_+1D]
-special: []

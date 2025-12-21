@@ -1,0 +1,47 @@
+Shop:
+  group: Shop
+  weapons:
+    Sword:
+      name: Sword
+      dieTypes: [RED, GREEN]
+      hands: 1
+      offhand: ["+1D"]
+      surgeopt: ["2_for_+1D"]
+      special: []
+      price: 75
+    Axe:
+      name: Axe
+      dieTypes: [RED, GREEN]
+      hands: 2
+      offhand: []
+      surgeopt: ["1_for_+1D"]
+      special: []
+      price: 100
+    Crossbow:
+      name: Crossbow
+      dieTypes: [BLUE, GREEN]
+      hands: 1
+      offhand: []
+      surgeopt: ["2_for_+1D","3_for_+1R"]
+      special: []
+      price: 150
+    Sunburst:
+      name: Sunburst
+      dieTypes: [WHITE, GREEN]
+      hands: 2
+      offhand: []
+      surgeopt: ["3_for_+1D","3_for_BLAST_1"]
+      special: []
+      price: 175
+
+Copper:
+  group: Copper
+  weapons: {}
+
+Silver:
+  group: Silver
+  weapons: {}
+
+Gold:
+  group: Gold
+  weapons: {}

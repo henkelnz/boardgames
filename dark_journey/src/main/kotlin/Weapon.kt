@@ -2,7 +2,8 @@ package dark_journey
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.core.type.TypeReference
+//import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 
@@ -13,21 +14,46 @@ import java.io.File
 
 data class Weapon(
     val name : String,
-    val dieTypes : Collection<DieType>,
+    val dieTypes : List<DieType>,
     val hands : Int,
-    val offhand : Collection<String>,
-    val surgeopt: Collection<String>,
-    val special : Collection<String> // TODO: enum?
+    val offhand : List<String>,
+    val surgeopt: List<String>,
+    val special : List<String>, // TODO: enum?
+    val price: Int
 )
 
-object WeaponDefs {
-    fun allWeapons() : Map<String, Any> {
-        val weapons = HashMap<String,Weapon>()
-        val mapper = ObjectMapper(YAMLFactory()).registerKotlinModule()
-        //val sword = mapper.readValue(File("./res/yaml/sword.yaml"), Weapon::class.java)
-        //val weapons = mapper.readValue(File("./res/yaml/weapons.yaml"), Map<String,Weapon::class.java>)
-        //weapons.put("Sword",sword)
-        val weaponMap : Map<String,Any> = mapper.readValue(File("./res/yaml/weapons.yaml").inputStream())
-        return weaponMap
+data class WeaponGroup(
+    val group : String,
+    val weapons : Map<String, Weapon>
+) {
+    fun weapon(name : String) : Weapon {
+        return weapons[name] ?: error("Weapon $name not found in WeaponGroup $group")    
     }
+}
+
+object WeaponDefs {
+    
+    val weaponGroups : Map<String, WeaponGroup>
+    
+    init {
+        weaponGroups = loadWeaponGroups()
+    }
+    
+    fun loadWeaponGroups(resourceName: String = "weapons.yaml"): Map<String, WeaponGroup> {
+        val mapper = ObjectMapper(YAMLFactory())
+            .registerKotlinModule()
+
+        val inputStream = Thread.currentThread()
+            .contextClassLoader
+            .getResourceAsStream(resourceName)
+            ?: error("Could not find resource: $resourceName")
+
+        return inputStream.use {
+            mapper.readValue(it, object : TypeReference<Map<String, WeaponGroup>>() {})
+        }
+    }    
+        
+    fun weaponGroup(name : String) : WeaponGroup {
+        return weaponGroups[name] ?: error("Weapon group $name not found in weapons.yaml")
+    }    
 }
