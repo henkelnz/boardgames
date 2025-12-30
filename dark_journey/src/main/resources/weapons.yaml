@@ -22,7 +22,7 @@ Shop:
       dieTypes: [BLUE, GREEN]
       hands: 1
       offhand: []
-      surgeopt: ["2_for_+1D","3_for_+1R"]
+      surgeopt: ["2_for_+1D", "3_for_+1R"]
       special: []
       price: 150
     Sunburst:
@@ -30,7 +30,7 @@ Shop:
       dieTypes: [WHITE, GREEN]
       hands: 2
       offhand: []
-      surgeopt: ["3_for_+1D","3_for_BLAST_1"]
+      surgeopt: ["3_for_+1D", "3_for_BLAST_1"]
       special: []
       price: 175
 

@@ -20,7 +20,23 @@ data class Weapon(
     val surgeopt: List<String>,
     val special : List<String>, // TODO: enum?
     val price: Int
-)
+) {
+    fun specialAbilities() : List<SpecialAbility> {
+        var specialAbilities = ArrayList<SpecialAbility>()
+        for (s in special) {
+            specialAbilities.add(SpecialAbility.fromString(s))
+        }
+        return specialAbilities
+    }
+    
+    fun surgeConversions() : List<SurgeConversion> {
+        var surgeConversions = ArrayList<SurgeConversion>()
+        for (s in surgeopt) {
+            surgeConversions.add(SurgeConversion.fromString(s))
+        }
+        return surgeConversions
+    }
+}
 
 data class WeaponGroup(
     val group : String,

@@ -13,7 +13,7 @@ fun prettyPrintDieResult(die: Die) {
     if (side.miss) {
         println("│        ✖ MISS ✖        │")
     } else {
-        println("│  ♥ Wounds : ${side.wounds}".padEnd(24) + "│")
+        println("│  ♥ Damage : ${side.damage}".padEnd(24) + "│")
         println("│  ⚡ Surges : ${side.surges}".padEnd(24) + "│")
         println("│  → Range  : ${side.range}".padEnd(24) + "│")
         println("│  / Power  : ${side.power}".padEnd(24) + "│")

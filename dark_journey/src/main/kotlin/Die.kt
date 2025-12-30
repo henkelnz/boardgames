@@ -19,40 +19,40 @@ data class DieSide(
     val power: Int = 0,
     val range: Int = 0,
     val surges: Int = 0,
-    val wounds: Int = 0
+    val damage: Int = 0
 )
 
 object DieDefs {
     val redDieSides = arrayOf(
         DieSide(miss = true),
-        DieSide(wounds = 4),
-        DieSide(wounds = 3, range = 1, surges = 1),
-        DieSide(wounds = 1, range = 2, surges = 1),
-        DieSide(wounds = 2, range = 2),
-        DieSide(wounds = 3, range = 1)
+        DieSide(damage = 4),
+        DieSide(damage = 3, range = 1, surges = 1),
+        DieSide(damage = 1, range = 2, surges = 1),
+        DieSide(damage = 2, range = 2),
+        DieSide(damage = 3, range = 1)
     )
     
     val blueDieSides = arrayOf(
         DieSide(miss = true),
-        DieSide(wounds = 2, range = 1),
-        DieSide(wounds = 2, range = 2),
-        DieSide(wounds = 1, range = 3, surges = 1),
-        DieSide(wounds = 1, range = 3, surges = 1),
-        DieSide(wounds = 0, range = 4, surges = 1)
+        DieSide(damage = 2, range = 1),
+        DieSide(damage = 2, range = 2),
+        DieSide(damage = 1, range = 3, surges = 1),
+        DieSide(damage = 1, range = 3, surges = 1),
+        DieSide(damage = 0, range = 4, surges = 1)
     )
     
     val whiteDieSides = arrayOf(
         DieSide(miss = true),
-        DieSide(wounds = 3, range = 1, surges = 1),
-        DieSide(wounds = 3, range = 1, surges = 1),
-        DieSide(wounds = 2, range = 2),
-        DieSide(wounds = 1, range = 3, surges = 1),
-        DieSide(wounds = 1, range = 3, surges = 1)
+        DieSide(damage = 3, range = 1, surges = 1),
+        DieSide(damage = 3, range = 1, surges = 1),
+        DieSide(damage = 2, range = 2),
+        DieSide(damage = 1, range = 3, surges = 1),
+        DieSide(damage = 1, range = 3, surges = 1)
     )
     
     val yellowDieSides = arrayOf(
-        DieSide(wounds = 1, range = 1),
-        DieSide(wounds = 1, range = 2),
+        DieSide(damage = 1, range = 1),
+        DieSide(damage = 1, range = 2),
         DieSide(range = 2, surges = 1),
         DieSide(range = 2, surges = 1),
         DieSide(range = 3),
@@ -60,12 +60,12 @@ object DieDefs {
     )
 
     val greenDieSides = arrayOf(
-        DieSide(wounds = 3),
-        DieSide(wounds = 3),
-        DieSide(wounds = 2, surges = 1),
-        DieSide(wounds = 2, surges = 1),
-        DieSide(wounds = 1, range = 1),
-        DieSide(wounds = 2, range = 1)
+        DieSide(damage = 3),
+        DieSide(damage = 3),
+        DieSide(damage = 2, surges = 1),
+        DieSide(damage = 2, surges = 1),
+        DieSide(damage = 1, range = 1),
+        DieSide(damage = 2, range = 1)
     )
     
     val blackDieSides = arrayOf(
@@ -171,6 +171,22 @@ class Die(var type : DieType) {
     fun roll(): DieSide {
         facingSide = Random.nextInt(sides.size)
         return sides[facingSide]
+    }
+    
+    fun roll(player : Player) : DieSide {
+        facingSide = FairRandom.result(player, type)
+        return sides[facingSide]
+    }
+    
+    fun setSide(sideIndex: Int) {
+        facingSide = sideIndex
+    }
+    
+    fun isPower() : Boolean {
+        if (type in listOf(DieType.BLACK, DieType.SILVER, DieType.GOLD))
+            return true
+        else 
+            return false
     }
 
     /**

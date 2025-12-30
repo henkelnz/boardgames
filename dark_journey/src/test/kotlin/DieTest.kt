@@ -21,6 +21,24 @@ class DieTest : StringSpec({
             println("All sides rolled in $tries tries on $dieType")
         }    
     }
+    "Fair random never misses more than 1/4 times for each player" {
+        var die = Die(DieType.RED)
+        var fail = false
+        for (i in 1..5) {
+            var heroHits = 0; var heroMisses = 0; var overlordHits = 0; var overlordMisses = 0
+            FairRandom.reset()
+            for (j in 1..24) {
+                var heroResult = die.roll(Player.HEROES)
+                var overlordResult = die.roll(Player.OVERLORD)
+                if (heroResult.miss) {++heroMisses} else {++heroHits}
+                if (overlordResult.miss) {++overlordMisses} else {++overlordHits}
+            }
+            if (0.25 < heroMisses.toFloat() / 24.0 || 0.25 < overlordMisses.toFloat() / 24.0) {
+                fail = true
+            }
+        }
+        fail shouldBe false
+    }
     
     "Get a set of dice from types" {
         val dieTypes = ArrayList<DieType>()
