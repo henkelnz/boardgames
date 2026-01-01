@@ -40,4 +40,35 @@ class DungeonMapTest : StringSpec({
         map.wad shouldBe expected.wad
         map.sqc shouldBe expected.sqc
     }
+    
+    "Calculate supercover squares" {
+        var sp = Pair(1,1)
+        var ep = Pair(12,9)
+        var expectedSquares = arrayListOf(
+            Pair(1,1), Pair(2,1), Pair(2,2), Pair(3,2), Pair(3,3), Pair(4,3), Pair(4,4), Pair(5,4), Pair(6,4),
+            Pair(6,5), Pair(7,5), Pair(7,6), Pair(8,6), Pair(9,6), Pair(9,7), Pair(10,7), Pair(10,8), Pair(11, 8),
+            Pair(11,9), Pair(12,9)
+        )
+        var squares = DungeonMap.superCoverLine(sp, ep)
+        squares shouldBe expectedSquares
+        
+        sp = Pair(1,1)
+        ep = Pair(4,2)
+        expectedSquares = arrayListOf(
+            Pair(1,1), Pair(2,1), Pair(3,2), Pair(4,2)
+        )
+        squares = DungeonMap.superCoverLine(sp, ep)
+        squares shouldBe expectedSquares
+    }
+    
+    "Calculate adjacency, LOS, and distance from square" {
+        val map = DungeonMap.load("testMap1.wad", "testMap1.sqc")
+        
+        val a = Pair(5, 3)
+        
+        map.areAdjacent(a, Pair(4,2)) shouldBe true
+        map.areAdjacent(a, Pair(3,3)) shouldBe false
+        
+        
+    }
 })
